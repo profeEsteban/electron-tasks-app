@@ -2,12 +2,11 @@ const { app, BrowserWindow, ipcMain } = require('electron')
 const path = require('path')
 const electronReload = require('electron-reload')
 
-require('electron-reload')(__dirname, {
+electronReload(__dirname, {
   electron: path.join(__dirname, 'node_modules', '.bin', 'electron'),
   hardResetMethod: 'exit'
 });
 
-const ipc = ipcMain
 
 function createWindow() {
   const myWindow = new BrowserWindow({
@@ -19,7 +18,7 @@ function createWindow() {
     webPreferences: {
       nodeIntegration: true,
       contextIsolation: false,
-      devTools: false,
+      devTools: true,
       preload: path.join(__dirname, 'preload.js')
     }
   })
@@ -28,16 +27,16 @@ function createWindow() {
   // myWindow.loadUrl(`file://${__dirname}/index.html`);
   myWindow.loadFile(`${__dirname}/index.html`);
 
-  ipc.on('minimizeApp', () => {
+  ipcMainon('minimizeApp', () => {
     myWindow.minimize()
   })
 
-  ipc.on('maximizeRestoreApp', () => {
+  ipcMainon('maximizeRestoreApp', () => {
     if (myWindow.isMaximized()) myWindow.unmaximize()
     else myWindow.maximize()
   })
 
-  ipc.on('closeApp', () => {
+  ipcMainon('closeApp', () => {
     myWindow.close()
   })
 
