@@ -1,5 +1,5 @@
 
-.mainApp>.topBar {
+.mainApp>div>.topBar {
   display: flex;
   flex-direction: row;
   width: 100%;

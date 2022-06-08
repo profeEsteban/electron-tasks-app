@@ -27,16 +27,16 @@ function createWindow() {
   // myWindow.loadUrl(`file://${__dirname}/index.html`);
   myWindow.loadFile(`${__dirname}/index.html`);
 
-  ipcMainon('minimizeApp', () => {
+  ipcMain.on('minimizeApp', () => {
     myWindow.minimize()
   })
 
-  ipcMainon('maximizeRestoreApp', () => {
+  ipcMain.on('maximizeRestoreApp', () => {
     if (myWindow.isMaximized()) myWindow.unmaximize()
     else myWindow.maximize()
   })
 
-  ipcMainon('closeApp', () => {
+  ipcMain.on('closeApp', () => {
     myWindow.close()
   })
 
