@@ -28,7 +28,8 @@ fetch('components/nav.html')
     showHideMenus = document.getElementById("showHideMenus");
 
 
-    // Añadimos los eventos.
+    // Añadimos los eventos para cada clic enviando desde
+    // el render al proceso un evento especifico segun el boton.
     minimizeBtn.addEventListener('click', () => {
       ipcRenderer.send('minimizeApp')
     })
@@ -49,7 +50,7 @@ fetch('components/nav.html')
     })
   })
 
-  
+
 // Funcion para cambiar el icono de maximizar y restaurar.
 function changeMaxResBtn(isMaximizedApp) {
   if (isMaximizedApp) {
