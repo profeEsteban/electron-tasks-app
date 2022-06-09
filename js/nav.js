@@ -1,55 +1,43 @@
 const { ipcRenderer } = require("electron")
-const ipc = ipcRenderer
 
 var isLeftMenuAactive = false
 
 var minimizeBtn = null;
 var maxResBtn = null;
 var closeBtn = null;
+var showHideMenus = null;
 
+
+// Aquí traemos el HTML del nav y lo incrustamos:
 fetch('components/nav.html')
   .then(res => res.text())
-  .then(text => {
-    let oldelem = document.querySelector("script#replace_with_navbar");
-    let newelem = document.createElement("div");
-    newelem.innerHTML = text;
-    oldelem.parentNode.replaceChild(newelem, oldelem);
+  .then(htmlNav => {
+    // Elemento base es el script
+    let oldElement = document.querySelector("script#replace_with_navbar");
+    // Elemento nuevo es un div donde irá el html del nav
+    let newElement = document.createElement("div");
+    newElement.innerHTML = htmlNav;
+    // Remplazamos el base por el nuevo
+    oldElement.parentNode.replaceChild(newElement, oldElement);
 
+
+    // Buscamos los elementos.
     minimizeBtn = document.getElementById("minimizeBtn");
     maxResBtn = document.getElementById("maxResBtn");
     closeBtn = document.getElementById("closeBtn");
+    showHideMenus = document.getElementById("showHideMenus");
 
+
+    // Añadimos los eventos.
     minimizeBtn.addEventListener('click', () => {
-      ipc.send('minimizeApp')
+      ipcRenderer.send('minimizeApp')
     })
     maxResBtn.addEventListener('click', () => {
-      ipc.send('maximizeRestoreApp')
+      ipcRenderer.send('maximizeRestoreApp')
     })
     closeBtn.addEventListener('click', () => {
-      ipc.send('closeApp')
+      ipcRenderer.send('closeApp')
     })
-
-
-    function changeMaxResBtn(isMaximizedApp) {
-      if (isMaximizedApp) {
-        maxResBtn.title = 'Restore'
-        maxResBtn.classList.remove("maximizeBtn")
-        maxResBtn.classList.add("restoreBtn")
-      } else {
-        maxResBtn.title = 'Maximize'
-        maxResBtn.classList.remove("restoreBtn")
-        maxResBtn.classList.add("maximizeBtn")
-      }
-    }
-
-    ipc.on("isMaximized", () => {
-      changeMaxResBtn(true)
-    })
-    ipc.on("isRestored", () => {
-      changeMaxResBtn(false)
-    })
-
-
     showHideMenus.addEventListener('click', () => {
       if (isLeftMenuAactive) {
         mySidebar.style.width = '0px'
@@ -60,3 +48,26 @@ fetch('components/nav.html')
       }
     })
   })
+
+  
+// Funcion para cambiar el icono de maximizar y restaurar.
+function changeMaxResBtn(isMaximizedApp) {
+  if (isMaximizedApp) {
+    maxResBtn.title = 'Restore'
+    maxResBtn.classList.remove("maximizeBtn")
+    maxResBtn.classList.add("restoreBtn")
+  } else {
+    maxResBtn.title = 'Maximize'
+    maxResBtn.classList.remove("restoreBtn")
+    maxResBtn.classList.add("maximizeBtn")
+  }
+}
+
+
+// Escuchamos el proceso de la aplicación cuando nos dice que se maximiza o se restaura.
+ipcRenderer.on("isMaximized", () => {
+  changeMaxResBtn(true)
+})
+ipcRenderer.on("isRestored", () => {
+  changeMaxResBtn(false)
+})
