@@ -2,6 +2,7 @@ const { ipcRenderer } = require("electron")
 
 var isLeftMenuAactive = false
 
+var navBar = null;
 var minimizeBtn = null;
 var maxResBtn = null;
 var closeBtn = null;
@@ -22,6 +23,7 @@ fetch('components/nav.html')
 
 
     // Buscamos los elementos.
+    navBar = document.getElementById("navBar");
     minimizeBtn = document.getElementById("minimizeBtn");
     maxResBtn = document.getElementById("maxResBtn");
     closeBtn = document.getElementById("closeBtn");
@@ -72,3 +74,22 @@ ipcRenderer.on("isMaximized", () => {
 ipcRenderer.on("isRestored", () => {
   changeMaxResBtn(false)
 })
+
+
+// Funcion para cambiar el color de la barra segun focus.
+function changeNavColor(isFocus) {
+  if (isFocus) {
+    navBar.classList.remove("inactive")
+  } else {
+    navBar.classList.add("inactive")
+  }
+}
+// Escuchamos el proceso de la aplicación cuando nos dice que se maximiza o se restaura.
+ipcRenderer.on("isFocus", () => {
+  changeNavColor(true)
+})
+ipcRenderer.on("isInactive", () => {
+  changeNavColor(false)
+})
+
+

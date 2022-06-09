@@ -5,13 +5,18 @@
   width: 100%;
   height: 35px;
   /* border-bottom: 3px solid #343848; */
-  background-color: #181d23;
+  background-color: #495057;
   /* background-image: url('../images/titlebar.png'); */
   background-size: contain;
   /* border-radius: 15px 15px 0 0; */
   border-color: #4b0000;
   -webkit-user-select: none;
   color: #FFFFFF;
+}
+
+.topBar.inactive {
+  background-color: #262d36 !important;
+  color: #727374 !important;
 }
 
 .topBar>.titleBar {
