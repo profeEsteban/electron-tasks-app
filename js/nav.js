@@ -6,6 +6,7 @@ var minimizeBtn = null;
 var maxResBtn = null;
 var closeBtn = null;
 var showHideMenus = null;
+var nav = null;
 
 
 // Aquí traemos el HTML del nav y lo incrustamos:
@@ -26,6 +27,7 @@ fetch('components/nav.html')
     maxResBtn = document.getElementById("maxResBtn");
     closeBtn = document.getElementById("closeBtn");
     showHideMenus = document.getElementById("showHideMenus");
+    nav = document.getElementById("nav");
 
 
     // Añadimos los eventos para cada clic enviando desde
@@ -71,4 +73,13 @@ ipcRenderer.on("isMaximized", () => {
 })
 ipcRenderer.on("isRestored", () => {
   changeMaxResBtn(false)
+})
+
+
+// Escuchamos el proceso de la aplicación cuando nos dice que se maximiza o se restaura.
+ipcRenderer.on("isFocus", () => {
+  nav.classList.remove("blur")
+})
+ipcRenderer.on("isBlur", () => {
+  nav.classList.add("blur")
 })

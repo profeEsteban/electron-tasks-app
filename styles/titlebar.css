@@ -14,6 +14,11 @@
   color: #FFFFFF;
 }
 
+.topBar.blur {
+  color: #64666a !important;
+  background-color: #32373e !important;
+}
+
 .topBar>.titleBar {
   display: flex;
   flex-direction: row;
