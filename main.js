@@ -47,6 +47,13 @@ function createWindow() {
   myWindow.on("unmaximize", () => {
     myWindow.webContents.send("isRestored")
   })
+
+  myWindow.on("focus", () => {
+    myWindow.webContents.send("isFocus")
+  })
+  myWindow.on("blur", () => {
+    myWindow.webContents.send("isBlur")
+  })
 }
 
 app.whenReady().then(() => {

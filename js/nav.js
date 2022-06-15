@@ -2,6 +2,8 @@ const { ipcRenderer } = require("electron")
 
 var isLeftMenuAactive = false
 
+var tileBar = null;
+
 var minimizeBtn = null;
 var maxResBtn = null;
 var closeBtn = null;
@@ -10,18 +12,19 @@ var showHideMenus = null;
 
 // Aquí traemos el HTML del nav y lo incrustamos:
 fetch('components/nav.html')
-  .then(res => res.text())
-  .then(htmlNav => {
+  .then(archivo => archivo.text())
+  .then(htmlBar => {
     // Elemento base es el script
     let oldElement = document.querySelector("script#replace_with_navbar");
     // Elemento nuevo es un div donde irá el html del nav
-    let newElement = document.createElement("div");
-    newElement.innerHTML = htmlNav;
+    let elementBar = document.createElement("div");
+    elementBar.innerHTML = htmlBar;
     // Remplazamos el base por el nuevo
-    oldElement.parentNode.replaceChild(newElement, oldElement);
+    oldElement.parentNode.replaceChild(elementBar, oldElement);
 
 
     // Buscamos los elementos.
+    tileBar = document.querySelector("div.topBar");
     minimizeBtn = document.getElementById("minimizeBtn");
     maxResBtn = document.getElementById("maxResBtn");
     closeBtn = document.getElementById("closeBtn");
@@ -64,6 +67,14 @@ function changeMaxResBtn(isMaximizedApp) {
   }
 }
 
+function changeFocusTilebar(isFocus) {
+  if (isFocus) {
+    tileBar.classList.remove("blur")
+  } else {
+    tileBar.classList.add("blur")
+  }
+}
+
 
 // Escuchamos el proceso de la aplicación cuando nos dice que se maximiza o se restaura.
 ipcRenderer.on("isMaximized", () => {
@@ -71,4 +82,13 @@ ipcRenderer.on("isMaximized", () => {
 })
 ipcRenderer.on("isRestored", () => {
   changeMaxResBtn(false)
+})
+
+// Escuchamos el proceso de la aplicación cuando nos dice que 
+// se hizo un focus o un blur.
+ipcRenderer.on("isFocus", () => {
+  changeFocusTilebar(true)
+})
+ipcRenderer.on("isBlur", () => {
+  changeFocusTilebar(false)
 })
