@@ -1,10 +1,13 @@
+'use strict';
+
 const { app, BrowserWindow, ipcMain } = require('electron')
 const path = require('path')
 const electronReload = require('electron-reload')
 
 electronReload(__dirname, {
-  electron: path.join(__dirname, 'node_modules', '.bin', 'electron'),
-  hardResetMethod: 'exit'
+  // electron: path.join(__dirname, 'node_modules', '.bin', 'electron'),
+  hardResetMethod: "quit",
+  forceHardReset: true
 });
 
 

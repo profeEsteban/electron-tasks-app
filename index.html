@@ -5,6 +5,7 @@
   <link href="styles/style.css" rel="stylesheet">
   <link href="styles/schrollBar.css" rel="stylesheet">
   <link href="styles/titlebar.css" rel="stylesheet">
+  <link href="styles/tasks.css" rel="stylesheet">
 
   <script defer src="js/appFunctions.js"></script>
 
@@ -20,7 +21,19 @@
 
       </div>
       <div class="contentPage">
+        <form id="newTaskForm" action="submit">
+          <label for="title">Titulo</label>
+          <input type="text" name="title" id="title" />
+          <label for="description">Description</label>
+          <input type="text" name="description" id="description" />
+          <button type="submit">Crear</button>
+        </form>
 
+        <div>
+          <h1>Lista de tareas</h1>
+          <ul id="tasksListUI">
+          </ul>
+        </div>
       </div>
     </div>
   </div>
