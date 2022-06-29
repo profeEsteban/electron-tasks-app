@@ -2,18 +2,23 @@ const { app, BrowserWindow, ipcMain } = require('electron')
 const path = require('path')
 const electronReload = require('electron-reload')
 
+require("./database")
+const { findTasks } = require("./database")
+
 electronReload(__dirname, {
-  electron: path.join(__dirname, 'node_modules', '.bin', 'electron'),
+  // electron: path.join(__dirname, 'node_modules', '.bin', 'electron'),
+  electron: path.join(__dirname, "node_modules", "electron", "dist", "electron.exe"),
   hardResetMethod: 'exit'
 });
 
-
 function createWindow() {
   const myWindow = new BrowserWindow({
-    width: 780,
-    height: 640,
-    minWidth: 400,
+    width: 360,
+    height: 780,
+    minWidth: 360,
     minHeight: 600,
+    x: 1010,
+    y: 0,
     frame: false,
     webPreferences: {
       nodeIntegration: true,
@@ -65,6 +70,12 @@ app.whenReady().then(() => {
 })
 
 app.on('window-all-closed', function () {
-  if (process.platform !== 'darwin') app.quit()
+  // if (process.platform !== 'darwin') app.quit()
+  if (process.platform !== 'darwin') app.exit()
+})
+
+
+findTasks().then((result) => {
+  console.log("TASKS: ",result)
 })
 
