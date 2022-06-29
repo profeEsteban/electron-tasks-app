@@ -79,7 +79,9 @@ ipcRenderer.on("isRestored", () => {
 // Escuchamos el proceso de la aplicación cuando nos dice que se maximiza o se restaura.
 ipcRenderer.on("isFocus", () => {
   nav.classList.remove("blur")
+  nav.classList.add("focus")
 })
 ipcRenderer.on("isBlur", () => {
+  nav.classList.remove("focus")
   nav.classList.add("blur")
 })
