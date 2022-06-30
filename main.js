@@ -4,10 +4,14 @@ const { app, BrowserWindow, ipcMain } = require('electron')
 const path = require('path')
 const electronReload = require('electron-reload')
 
+require("./database");
+const { TasksFind } = require("./database");
+
 electronReload(__dirname, {
   // electron: path.join(__dirname, 'node_modules', '.bin', 'electron'),
   electron: path.join(__dirname, "node_modules", "electron", "dist", "electron.exe"),
   hardResetMethod: 'exit',
+  forceHardReset: true
 });
 
 function createWindow() {
@@ -58,6 +62,8 @@ function createWindow() {
   myWindow.on("blur", () => {
     myWindow.webContents.send("isInactive")
   })
+
+
 }
 
 app.whenReady().then(() => {
@@ -72,3 +78,11 @@ app.on('window-all-closed', function () {
   if (process.platform !== 'darwin') app.quit()
 })
 
+
+ipcMain.on("getTasks", (e) => {
+  TasksFind().then(tasksQuery => {
+    console.log(tasksQuery);
+    let tasks = tasksQuery.map(e => e._doc)
+    e.reply("tasks", tasks)
+  })
+})

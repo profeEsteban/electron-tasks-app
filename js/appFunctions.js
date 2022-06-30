@@ -1,3 +1,4 @@
+// const { ipcRenderer } = require("electron");
 
 var tasksList = ["fruta", "verduras", "carnes", "celulares", "papeles", "bolsas"].map((element, index) => {
   let tarea = {
@@ -63,3 +64,10 @@ function renderTasks() {
 }
 
 renderTasks()
+
+ipcRenderer.send("getTasks")
+ipcRenderer.on("tasks", (e, tasks) => {
+  console.log(tasks)
+  tasksList = tasks;
+  renderTasks()
+})
