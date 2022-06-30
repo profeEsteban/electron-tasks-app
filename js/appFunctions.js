@@ -39,7 +39,7 @@ newTaskForm.addEventListener("submit", e => {
 function taskToHTML(task, index) {
   return `
     <li id="task${index}" class="task">
-      <input onClick="checkTask(${index})" type="checkbox" name="" id="" ${task.isFinished ? "checked" : ""} >
+      <input class="checkbox" onClick="checkTask(${index})" type="checkbox" name="" id="" ${task.isFinished ? "checked" : ""} >
       <div class="text">
         <h3>${task.title}</h3>
         <p>${task.description}</p>
