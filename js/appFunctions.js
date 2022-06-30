@@ -1,19 +1,16 @@
 
-var tasksList = ["fruta", "verduras", "carnes", "celulares"].map((element, index) => {
-  return {
+var tasksList = ["fruta", "verduras", "carnes", "celulares", "papeles", "bolsas"].map((element, index) => {
+  let tarea = {
     title: "Compra " + (index + 1),
     description: "Ir al mercado por " + element,
     date: new Date(),
     isFinished: index % 3 == 0
   }
+  return tarea
 })
 
 const newTaskForm = document.getElementById("newTaskForm");
 const tasksListUI = document.getElementById("tasksListUI");
-
-tasksListUI.innerHTML = tasksList.map((task, index) => {
-  return taskToHTML(task, index);
-})
 
 newTaskForm.addEventListener("submit", e => {
   e.preventDefault();
@@ -64,3 +61,5 @@ function renderTasks() {
     return taskToHTML(task, index);
   })
 }
+
+renderTasks()
