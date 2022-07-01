@@ -2,6 +2,8 @@ const { app, BrowserWindow, ipcMain } = require('electron')
 const path = require('path')
 const electronReload = require('electron-reload')
 
+const { TaskFind } = require("./database")
+
 electronReload(__dirname, {
   // electron: path.join(__dirname, 'node_modules', '.bin', 'electron'),
   electron: path.join(__dirname, "node_modules", "electron", "dist", "electron.exe"),
@@ -72,3 +74,19 @@ app.on('window-all-closed', function () {
   if (process.platform !== 'darwin') app.quit()
 })
 
+ipcMain.on("get-all-tasks", (event) => {
+  TaskFind().then(tasksQuery => {
+    console.log("TAREAS: ", tasksQuery)
+    // let tasks = [];
+    // tasksQuery.forEach(task => {
+    //   tasks.push(task._doc);
+    // });
+    // for (let index = 0; index < tasksQuery.length; index++) {
+    //   tasks.push(tasksQuery[index]._doc);
+    // }
+    const tasks = tasksQuery.map(task => task._doc)
+    event.reply("tasks", tasks)
+  }).catch(error => {
+    console.log("ERROR: ", error)
+  })
+})

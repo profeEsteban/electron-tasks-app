@@ -12,6 +12,7 @@
     "electron": "^18.2.4"
   },
   "dependencies": {
-    "electron-reload": "^2.0.0-alpha.1"
+    "electron-reload": "^2.0.0-alpha.1",
+    "mongoose": "^6.4.1"
   }
 }
