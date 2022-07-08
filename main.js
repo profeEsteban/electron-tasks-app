@@ -75,7 +75,8 @@ app.on('window-all-closed', function () {
 })
 
 
-findTasks().then((result) => {
-  console.log("TASKS: ",result)
+ipcMain.on("get-tasks", (e) => {
+  findTasks().then((tasks) => {
+    e.reply("tasks", tasks)
+  })
 })
-
