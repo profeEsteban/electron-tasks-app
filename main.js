@@ -85,8 +85,15 @@ ipcMain.on("get-all-tasks", (event) => {
     //   tasks.push(tasksQuery[index]._doc);
     // }
     const tasks = tasksQuery.map(task => task._doc)
-    event.reply("tasks", tasks)
+    const result = {
+      tasks: tasks
+    }
+    event.reply("tasks", result)
   }).catch(error => {
     console.log("ERROR: ", error)
+    const result = {
+      error,
+    }
+    event.reply("tasks", result)
   })
 })

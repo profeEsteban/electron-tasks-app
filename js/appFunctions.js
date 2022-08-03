@@ -5,7 +5,8 @@ function getTasks() {
   ipcRenderer.send("get-all-tasks")
 }
 
-ipcRenderer.on("tasks", (event, tasks) => {
-  console.log("RECIVIENDO LAS TAREAS");
-  console.log(tasks);
-} )
+ipcRenderer.on("tasks", (event, result) => {
+  console.log("RECIVIENDO LAS TAREAS: ", result);
+  if (result.error) alert(result.error)
+  else console.log(result.tasks);
+})
