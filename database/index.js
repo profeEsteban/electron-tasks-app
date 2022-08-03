@@ -1,6 +1,18 @@
 const mongodb = require('mongodb');
 const mongoose = require('mongoose');
 
+// const obtenerRandom = () => new Promise((accionPositiva, accionNegativa) => {
+//   let random = Math.random() * 5;
+//   if(random < 3) accionPositiva(random)
+//   else accionNegativa(random)
+// })
+
+// obtenerRandom().then(result => {
+//   console.log("genial!! random: ", result)
+// }).catch(error => {
+//   console.log("ERRRORRRRRR!! random: ", error)
+// })
+
 mongoose
   .connect('mongodb://localhost:27017/miercoles')
   .then(() => {
@@ -20,17 +32,25 @@ const taskSchema = new mongoose.Schema({
 
 const Task = mongoose.model('Task', taskSchema);
 
-let task1 = new Task({
-  title: "tarea 1",
-  description: "Esta tarea es nueva",
-  created: new Date(),
-  isFinish: false
-})
+function saveTask(task) {
+  return new Promise((resolve, reject) => {
+    let task1 = new Task({
+      title: task.title,
+      description: task.description,
+      created: new Date(),
+      isFinish: false
+    })
 
-task1.save().then(r => {
-  console.log(task1.title + " saved.");
-})
+    task1.save().then(r => {
+      console.log(task1.title + " saved.");
+      resolve(task1)
+    }).catch(error => {
+      reject(error)
+    })
+  })
+}
 
 module.exports = {
-  findTasks: () => Task.find()
+  findTasks: () => Task.find(),
+  saveTask: (task) => saveTask(task)
 }
