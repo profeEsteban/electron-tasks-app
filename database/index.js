@@ -7,7 +7,7 @@ mongoose.connect('mongodb://localhost:27017/viernes')
     console.log("// CONECTADO  SATISFACTORIAMENTE //");
     console.log("///////////////////////////////////");
   }).catch((error) => {
-    console.log("ERROR: ", error)
+    console.log("ERROR CONEXION: ", error)
   });
 
 
@@ -56,7 +56,20 @@ const Task = mongoose.model('Task', taskSchema);
 //   console.log("ERROR: ", error);
 // })
 
+function TaskNew(newTaskParam) {
+  const newTask = new Task({ 
+      title: newTaskParam.title,
+      description: newTaskParam.description,
+      date: new Date(),
+      isFinished: false,
+      previus: null
+     });
+    
+    return newTask.save()
+}
 
 module.exports = {
-  TaskFind: () => Task.find()
+  TaskFind: () => Task.find(),
+  // TaskNew: (newTask) => TaskNew()
+  TaskNew
 }

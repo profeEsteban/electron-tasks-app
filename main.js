@@ -2,7 +2,7 @@ const { app, BrowserWindow, ipcMain } = require('electron')
 const path = require('path')
 const electronReload = require('electron-reload')
 
-const { TaskFind } = require("./database")
+const { TaskFind, TaskNew } = require("./database")
 
 electronReload(__dirname, {
   // electron: path.join(__dirname, 'node_modules', '.bin', 'electron'),
@@ -53,7 +53,7 @@ function createWindow() {
     myWindow.webContents.send("isRestored")
   })
 
-  
+
   myWindow.on("focus", () => {
     myWindow.webContents.send("isFocus")
   })
@@ -95,5 +95,22 @@ ipcMain.on("get-all-tasks", (event) => {
       error,
     }
     event.reply("tasks", result)
+  })
+})
+
+ipcMain.on("create-new-task", (event, newTask) => {
+  TaskNew(newTask).then(newTaskResult => {
+    console.log("TAREA CREADA: ", newTaskResult)
+
+    const result = {
+      newTask: newTaskResult._doc
+    }
+    event.reply("created-new-task", result)
+  }).catch(error => {
+    console.log("TAREA NO CREADA: ", error)
+    const result = {
+      error,
+    }
+    event.reply("created-new-task", result)
   })
 })
