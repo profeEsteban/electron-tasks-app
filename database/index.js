@@ -8,59 +8,17 @@ mongoose.connect('mongodb://localhost:27017/jueves')
   })
 
 
-
-
 const taskSchema = new mongoose.Schema({
+  _id: String,
   title: String,
   description: String,
   date: Date,
   isFinished: Boolean,
-});
+}, { _id: true });
 
 const Task = mongoose.model('Task', taskSchema);
 
-let tarea1 = new Task({
-  title: "Tarea s",
-  description: "Descripcion de la tarea 1",
-  date: new Date(),
-  isFinished: false
-});
-
-tarea1.save().then(result => {
-  console.log("SAVED ", result);
-}).catch(error => {
-  console.log("ERROR ", error);
-})
-
-
 module.exports = {
-  TasksFind: () => Task.find()
+  TasksFind: () => Task.find(),
+  TaskDelete: (_id) => Task.collection.deleteOne({ _id: new mongoose.Types.ObjectId(_id) })
 }
-
-/*
-
-
-let testPromise = new Promise((resolve, reject) => {
-  let random = Math.random() * 5
-  if(random < 4){
-    resolve(random)
-  } else {
-    reject(random)
-  }
-})
-
-function prueba() {
-  console.log("antes");
-  testPromise.then((resultado) => {
-    console.log("promesa resuelta");
-    console.log(resultado)
-  }).catch((error) => {
-    console.log("promesa error");
-    console.log(error)
-  })
-  console.log("despues");
-}
-
-prueba();
-
-*/

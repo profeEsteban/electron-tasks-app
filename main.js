@@ -5,7 +5,7 @@ const path = require('path')
 const electronReload = require('electron-reload')
 
 require("./database");
-const { TasksFind } = require("./database");
+const { TasksFind, TaskDelete } = require("./database");
 
 electronReload(__dirname, {
   // electron: path.join(__dirname, 'node_modules', '.bin', 'electron'),
@@ -34,6 +34,7 @@ function createWindow() {
   // myWindow.loadFile('index.html')
   // myWindow.loadUrl(`file://${__dirname}/index.html`);
   myWindow.loadFile(`${__dirname}/index.html`);
+  myWindow.openDevTools()
 
   ipcMain.on('minimizeApp', () => {
     myWindow.minimize()
@@ -86,3 +87,17 @@ ipcMain.on("getTasks", (e) => {
     e.reply("tasks", tasks)
   })
 })
+
+ipcMain.on("delete-task", (e, idTask) => {
+  console.log("BORRAR: ", idTask);
+
+  TaskDelete(idTask).then(r => {
+    console.log(r)
+    console.log("CORRECTO")
+
+    e.reply("deleted-task", idTask)
+  }).catch(e => {
+    console.log("ERROR: ", e)
+  })
+})
+

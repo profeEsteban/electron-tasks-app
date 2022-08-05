@@ -1,14 +1,18 @@
 // const { ipcRenderer } = require("electron");
 
-var tasksList = ["fruta", "verduras", "carnes", "celulares", "papeles", "bolsas"].map((element, index) => {
-  let tarea = {
-    title: "Compra " + (index + 1),
-    description: "Ir al mercado por " + element,
-    date: new Date(),
-    isFinished: index % 3 == 0
-  }
-  return tarea
-})
+// const { ipcRenderer } = require("electron");
+
+var tasksList = []
+// ["fruta", "verduras", "carnes", "celulares", "papeles", "bolsas"]
+// .map((element, index) => {
+//   let tarea = {
+//     title: "Compra " + (index + 1),
+//     description: "Ir al mercado por " + element,
+//     date: new Date(),
+//     isFinished: index % 3 == 0
+//   }
+//   return tarea
+// })
 
 const newTaskForm = document.getElementById("newTaskForm");
 const tasksListUI = document.getElementById("tasksListUI");
@@ -53,8 +57,13 @@ function checkTask(numberTask) {
 }
 
 function deleteTask(numberTask) {
-  tasksList = tasksList.filter((e, index) => index != numberTask)
-  renderTasks()
+  tasks = tasksList.find((e, index) => index == numberTask)
+  let idTask = tasks._id
+  console.log("BORRAR: ", idTask)
+  ipcRenderer.send("delete-task", idTask)
+
+  // tasksList = tasksList.filter((e, index) => index != numberTask)
+  // renderTasks()
 }
 
 function renderTasks() {
@@ -70,4 +79,9 @@ ipcRenderer.on("tasks", (e, tasks) => {
   console.log(tasks)
   tasksList = tasks;
   renderTasks()
+})
+
+ipcRenderer.on("deleted-task", (e, idTask) => {
+  console.log(idTask)
+  alert("Tarea BORRADA: ", idTask);
 })
