@@ -25,13 +25,26 @@ function Task({ task, index }: TaskParams) {
   }
 
   return (
-    <li id="task${index}" className="task">
-      <input className="checkbox" onClick={e => checkTask(index)} type="checkbox" name="" id="" checked={task.isFinished} />
+    <li id={"task" + index} className="task">
+      <input
+        className="checkbox"
+        onClick={e => checkTask(index)}
+        type="checkbox"
+        name=""
+        id=""
+        checked={task.isFinished}
+      />
       <div className="text">
-        <h3>${task.title}</h3>
-        <p>${task.description}</p>
+        <h3>{task.title}</h3>
+        <p>{task.description}</p>
       </div>
-      <img src="icons/delete.png" width="32px" height="32px" onClick={e => deleteTask(index)} />
+      <img
+        alt="delete"
+        src="/icons/delete.png"
+        width="32px"
+        height="32px"
+        onClick={e => deleteTask(index)}
+      />
     </li>
   )
 }

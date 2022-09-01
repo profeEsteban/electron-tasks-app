@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset='utf-8'>
+  <meta http-equiv='X-UA-Compatible' content='IE=edge'>
+  <title>Page Title</title>
+  <meta name='viewport' content='width=device-width, initial-scale=1'>
+  <link rel='stylesheet' type='text/css' media='screen' href='main.css'>
+  <script src='main.js'></script>
+</head>
+
+<body>
+  <h1>Bienvenido</h1>
+
+  <p>Por favor inicia sesion</p>
+
+  <input type="email" name="email" id="email">
+  <input type="password" name="password" id="password">
+
+  <button onclick="login()">Iniciar sesion</button>
+  <button onclick="signup()">Registrarse</button>
+
+  <p id="mensaje">Mensaje: </p>
+
+  <script>
+    function login() {
+      let emailH = "prueba@com"
+      let passwordH = "1234"
+
+      let email = document.getElementById("email")
+      let password = document.getElementById("password")
+      let mensaje = document.getElementById("mensaje")
+
+      if (emailH == email.value &&
+        passwordH == password.value
+      ) {
+        mensaje.innerHTML = "Mensaje: login"
+      } else
+        mensaje.innerHTML = "Mensaje: error login"
+    }
+    function signup() {
+      let mensaje = document.getElementById("mensaje")
+      mensaje.innerHTML = "Mensaje: signup"
+    }
+
+  </script>
+</body>
+
+</html>
