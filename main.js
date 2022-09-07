@@ -5,11 +5,11 @@ const electronReload = require('electron-reload')
 require("./database")
 const { findTasks, saveTask } = require("./database")
 
-electronReload(__dirname, {
-  // electron: path.join(__dirname, 'node_modules', '.bin', 'electron'),
-  electron: path.join(__dirname, "node_modules", "electron", "dist", "electron.exe"),
-  hardResetMethod: 'exit'
-});
+// electronReload(__dirname, {
+//   // electron: path.join(__dirname, 'node_modules', '.bin', 'electron'),
+//   electron: path.join(__dirname, "node_modules", "electron", "dist", "electron.exe"),
+//   hardResetMethod: 'exit'
+// });
 
 function createWindow() {
   const myWindow = new BrowserWindow({
@@ -29,8 +29,8 @@ function createWindow() {
   })
 
   // myWindow.loadFile('index.html')
-  // myWindow.loadUrl(`file://${__dirname}/index.html`);
-  myWindow.loadFile(`${__dirname}/index.html`);
+  myWindow.loadURL("http://localhost:3000");
+  // myWindow.loadFile(`${__dirname}/index.html`);
   myWindow.openDevTools();
   
   ipcMain.on('minimizeApp', () => {
