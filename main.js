@@ -1,18 +1,19 @@
 'use strict';
 
 const { app, BrowserWindow, ipcMain } = require('electron')
-const path = require('path')
-const electronReload = require('electron-reload')
+const path = require('path');
+const { env } = require('process');
+// const electronReload = require('electron-reload')
 
 require("./database");
 const { TasksFind, TaskDelete } = require("./database");
 
-electronReload(__dirname, {
-  // electron: path.join(__dirname, 'node_modules', '.bin', 'electron'),
-  electron: path.join(__dirname, "node_modules", "electron", "dist", "electron.exe"),
-  hardResetMethod: 'exit',
-  forceHardReset: true
-});
+// electronReload(__dirname, {
+//   // electron: path.join(__dirname, 'node_modules', '.bin', 'electron'),
+//   electron: path.join(__dirname, "node_modules", "electron", "dist", "electron.exe"),
+//   hardResetMethod: 'exit',
+//   forceHardReset: true
+// });
 
 function createWindow() {
   const myWindow = new BrowserWindow({
@@ -33,7 +34,8 @@ function createWindow() {
 
   // myWindow.loadFile('index.html')
   // myWindow.loadUrl(`file://${__dirname}/index.html`);
-  myWindow.loadFile(`${__dirname}/index.html`);
+  // myWindow.loadFile(`${__dirname}/index.html`);
+  myWindow.loadURL("http://localhost:3000")
   myWindow.openDevTools()
 
   ipcMain.on('minimizeApp', () => {

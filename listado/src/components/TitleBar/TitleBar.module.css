@@ -1,5 +1,5 @@
 
-.mainApp>div>.topBar {
+.topBar {
   display: flex;
   flex-direction: row;
   width: 100%;
@@ -19,20 +19,20 @@
   color: #727374 !important;
 }
 
-.topBar>.titleBar {
+.topBar .titleBar {
   display: flex;
   flex-direction: row;
   align-items: center;
 }
 
-.topBar>.titleBar {
+.topBar .titleBar {
   display: flex;
   flex-direction: row;
   align-items: center;
   width: 100%;
 }
 
-.titleBar>.toggleButton {
+.titleBar .toggleButton {
   width: 45px;
   height: 35px;
   border: none;
@@ -47,19 +47,19 @@
   cursor: pointer;
 }
 
-.titleBar>.toggleButton:hover {
+.titleBar .toggleButton:hover {
   background-color: #272C36;
 }
 
-.titleBar>.toggleButton:active {
+.titleBar .toggleButton:active {
   background-color: #4F9FEE;
 }
 
-.titleBar>img {
+.titleBar img {
   margin-left: 10px;
 }
 
-.titleBar>.title {
+.titleBar .title {
   margin-left: 10px;
   width: 100%;
   line-height: 35px;
@@ -70,14 +70,14 @@
   -webkit-app-region: drag;
 }
 
-.topBar>.titleBarBtns {
+.topBar .titleBarBtns {
   display: flex;
   flex-direction: row;
   width: 90px;
   height: 35px;
 }
 
-.titleBarBtns>.topBtn {
+.titleBarBtns .topBtn {
   width: 35px;
   height: 35px;
   border: none;
@@ -89,39 +89,39 @@
   cursor: pointer;
 }
 
-.titleBarBtns>.topBtn:hover {
+.titleBarBtns .topBtn:hover {
   background-color: #272C36;
 }
 
-.titleBarBtns>.topBtn:active {
+.titleBarBtns .topBtn:active {
   background-color: #4F9FEE;
 }
 
-.titleBarBtns>.minimizeBtn {
+.titleBarBtns .minimizeBtn {
   background-image: url('http://localhost:3000/icons/icon_minimize.png');
   background-size: contain;
 }
 
-.titleBarBtns>.maximizeBtn {
+.titleBarBtns .maximizeBtn {
   background-image: url('http://localhost:3000/icons/icon_maximize.png');
   background-size: contain;
 }
 
-.titleBarBtns>.restoreBtn {
+.titleBarBtns .restoreBtn {
   background-image: url('http://localhost:3000/icons/icon_restore.png');
   background-size: contain;
 }
 
-.titleBarBtns>.closeBtn {
+.titleBarBtns .closeBtn {
   /* border-radius: 0 15px 0 0; */
   background-image: url('http://localhost:3000/icons/icon_close.png');
   background-size: contain;
 }
 
-.titleBarBtns>.closeBtn:hover {
+.titleBarBtns .closeBtn:hover {
   background-color: #ee4f4f;
 }
 
-.titleBarBtns>.closeBtn:active {
+.titleBarBtns .closeBtn:active {
   background-color: #4b0000;
 }

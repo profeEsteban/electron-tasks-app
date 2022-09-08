@@ -1,21 +1,50 @@
+import { useState } from 'react'
 import style from './TitleBar.module.css'
-
+const ipcRenderer = window.require("electron").ipcRenderer
 
 function TitleBar() {
+  const [isMaximized, setIsMaximized] = useState(false)
+  const [isBlur, setIsBlur] = useState(false)
+
+  // Escuchamos el proceso de la aplicación cuando nos dice que se maximiza o se restaura.
+  ipcRenderer.on("isMaximized", () => {
+    setIsMaximized(true)
+  })
+  ipcRenderer.on("isRestored", () => {
+    setIsMaximized(false)
+  })
+
+  // Escuchamos el proceso de la aplicación cuando nos dice que se maximiza o se restaura.
+  ipcRenderer.on("isFocus", () => {
+    setIsBlur(false)
+  })
+  ipcRenderer.on("isInactive", () => {
+    setIsBlur(true)
+  })
+
+
 
   return (
-    <div id="navBar" className={style.topBar}>
+    <div className={[style.topBar, isBlur ? style.inactive : ""].join(" ")}>
       <div className={style.titleBar}>
-        <button id="showHideMenus" className={style.toggleButton}></button>
+        {/* <button className={style.toggleButton}></button> */}
         <img src="icons/icon_top_bar.png" alt="" />
-          <div className={style.title}>
-            Lista de tareas con electron
-          </div>
+        <div className={style.title}>
+          Lista de tareas con electron
+        </div>
       </div>
       <div className={style.titleBarBtns}>
-        <button id="minimizeBtn" className={`${style.topBtn} ${style.minimizeBtn}`}></button>
-        <button id="maxResBtn" className={style.topBtn+" "+style.maximizeBtn}></button>
-        <button id="closeBtn" className={style.topBtn+" "+style.closeBtn}></button>
+        <button onClick={e => ipcRenderer.send('minimizeApp')}
+          className={`${style.topBtn} ${style.minimizeBtn}`}></button>
+        <button
+          title={isMaximized ? 'Restore' : 'Maximize'}
+          onClick={e => ipcRenderer.send('maximizeRestoreApp')}
+          className={[
+            style.topBtn,
+            isMaximized ? style.maximizeBtn : style.restoreBtn
+          ].join(" ")}></button>
+        <button onClick={e => ipcRenderer.send('closeApp')}
+          className={style.topBtn + " " + style.closeBtn}></button>
       </div>
     </div>
   )
