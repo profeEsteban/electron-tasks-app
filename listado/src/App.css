@@ -53,3 +53,84 @@ body {
   justify-content: flex-start;
   overflow: auto;
 }
+
+
+
+
+
+
+
+
+
+
+
+@import url('https://fonts.googleapis.com/css2?family=Bungee+Spice&display=swap');
+
+@font-face {
+  font-family: GOOGLE;
+  src: url("https://fonts.googleapis.com/css2?family=Bungee+Spice&display=swap");
+}
+
+.letra-container {
+  padding: 8px;
+  margin: auto;
+  text-align: center;
+}
+
+.letra {
+  font-family: 'Bungee Spice', cursive;
+  color: white;
+  font-size: 50px;
+  animation: letra-shadow infinite 2.5s linear;
+}
+
+.delay0 {
+  animation-delay: 0.5s
+}
+
+.delay1 {
+  animation-delay: 1s
+}
+
+.delay2 {
+  animation-delay: 1.5s
+}
+
+.delay3 {
+  animation-delay: 2s
+}
+
+.delay4 {
+  animation-delay: 2.5s
+}
+
+@keyframes letra-shadow {
+  from {
+    /* transform: rotate(0deg); */
+    text-shadow: 2px 2px 25px magenta;
+  }
+
+  20% {
+    text-shadow: 2px 2px 25px blue;
+  }
+
+  40% {
+    text-shadow: 2px 2px 25px green;
+    /* transform: rotate(360deg); */
+  }
+
+  60% {
+    text-shadow: 2px 2px 25px red;
+    /* transform: rotate(360deg); */
+  }
+
+  80% {
+    text-shadow: 2px 2px 25px turquoise;
+    /* transform: rotate(360deg); */
+  }
+
+  to {
+    text-shadow: 2px 2px 25px magenta;
+    /* transform: rotate(360deg); */
+  }
+}
