@@ -30,7 +30,7 @@ function TasksList() {
       <h3 onClick={e => navigate("/")}>Cerrar Sesion</h3>
       <Link to="/"><Button variant="contained" color="error">Cerrar Sesion</Button></Link>
 
-      <FormTask />
+      {/* <FormTask /> */}
 
       <div>
         <h1>Lista de tareas</h1>

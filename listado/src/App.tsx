@@ -11,30 +11,37 @@ import {
   BrowserRouter,
   Routes,
   Route,
+  Link,
 } from "react-router-dom";
 import TasksList from './pages/TasksList';
+import Tasks from './layouts/Tasks';
 
 
 function App() {
 
   return (
-    <div className="mainApp">
-      <TitleBar />
+    <BrowserRouter>
+      <div className="mainApp">
+        <TitleBar />
+        <Link to="/tasks">Ir a Tareas</Link>
 
-      <div className="contentArea">
-        <div id="mySidebar" className="leftMenu">
+        <div className="contentArea">
+          <div id="mySidebar" className="leftMenu">
 
-        </div>
-        <div className="contentPage">
-          <BrowserRouter>
+          </div>
+          <div className="contentPage">
             <Routes>
               <Route path="/" element={<Login />} />
-              <Route path="/lista" element={<TasksList />} />
+              <Route path="/tasks" element={<Tasks />}>
+                <Route path="/tasks" element={<h1>Padre</h1>} />
+                <Route path="list" element={<TasksList />} />
+                <Route path="new" element={<FormTask />} />
+              </Route>
             </Routes>
-          </BrowserRouter >
+          </div>
         </div>
       </div>
-    </div>
+    </BrowserRouter >
   );
 }
 

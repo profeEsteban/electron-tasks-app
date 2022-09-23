@@ -1,8 +1,10 @@
 import { useState } from 'react'
+import { useNavigate } from 'react-router-dom'
 import style from './TitleBar.module.css'
 const ipcRenderer = window.require("electron").ipcRenderer
 
 function TitleBar() {
+  const navigate = useNavigate()
   const [isMaximized, setIsMaximized] = useState(false)
   const [isBlur, setIsBlur] = useState(false)
 
@@ -28,7 +30,8 @@ function TitleBar() {
     <div className={[style.topBar, isBlur ? style.inactive : ""].join(" ")}>
       <div className={style.titleBar}>
         {/* <button className={style.toggleButton}></button> */}
-        <img src="icons/icon_top_bar.png" alt="" />
+        <button onClick={e => navigate(-1)}>{"<"}</button>
+        <img src="/icons/icon_top_bar.png" alt="" />
         <div className={style.title}>
           Lista de tareas con electron
         </div>
