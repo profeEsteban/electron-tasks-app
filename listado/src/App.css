@@ -12,7 +12,7 @@ body {
   height: 100%;
 }
 
-.mainApp {
+#root {
   display: flex;
   flex-direction: column;
   flex-wrap: nowrap;
@@ -23,7 +23,7 @@ body {
   -webkit-box-sizing: border-box;
 }
 
-.mainApp>.contentArea {
+#root>.contentArea {
   display: flex;
   flex-direction: row;
   width: 100%;

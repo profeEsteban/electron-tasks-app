@@ -6,9 +6,7 @@ function Home() {
 
   return (
     <div>
-      <input id="title" type="text" />
-      <input id="description" type="text" />
-      <button onClick={e => save()}>Guardar</button>
+      <h1>Pantalla principal</h1>
       <ul id="tareas">
       </ul>
     </div>
