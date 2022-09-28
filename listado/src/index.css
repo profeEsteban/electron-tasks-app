@@ -28,3 +28,15 @@
 }
 
 /* //////////////////// */
+
+
+
+
+
+.selected {
+  background: blue;
+}
+
+.selected:focus {
+  background: red
+}

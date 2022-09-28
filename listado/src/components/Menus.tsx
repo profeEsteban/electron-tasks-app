@@ -4,7 +4,7 @@ import { useNavigate } from "react-router-dom";
 import Menu from "../models/Menu";
 import MenuItem from "./MenuItem";
 
-function Menus({ style, menus }: { style: SxProps, menus: Menu[] }) {
+function Menus({ style, menus }: { style?: SxProps, menus: Menu[] }) {
   const navigate = useNavigate()
   const [selected, setSelected] = useState(-1);
 
@@ -36,7 +36,7 @@ function Menus({ style, menus }: { style: SxProps, menus: Menu[] }) {
   })
 
   return (
-    <Paper sx={{...style, margin: 2, padding: 2, }}>
+    <Paper sx={{margin: 2, padding: 2, ...style }}>
       <h4>Menus</h4>
       {menus.map((menu, index) => {
         return <MenuItem

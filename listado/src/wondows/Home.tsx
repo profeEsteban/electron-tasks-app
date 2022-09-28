@@ -15,12 +15,7 @@ function Home() {
   ]
   return (
     <Box>
-      <Menus style={{
-        background: "red"
-      }} menus={menus} />
-      <Menus style={{
-        background: "green"
-      }} menus={menus} />
+      <Menus menus={menus} />
       <h1>Tareas</h1>
       <Link to="/new"><Button>Crear Tarea</Button></Link>
       <ul id="tasksListUI"></ul>
