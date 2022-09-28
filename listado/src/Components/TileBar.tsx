@@ -46,14 +46,9 @@ function TileBar() {
   return (
     <div className="topBar">
       <div className={isFocus ? "titleBar" : "titleBar blur"}>
-        <button
-          style={{
-            transform: "rotateX(90deg)"
-          }}
-          onClick={e => showHideMenu()} id="showHideMenus" className="toggleButton"></button>
         <img src="icons/icon_top_bar.png" alt="" />
         <div className="title">
-          Lista de tareas con electron
+          Lista de tareas
         </div>
       </div>
       <div className="titleBarBtns">
@@ -64,9 +59,9 @@ function TileBar() {
           className={isMaximizedApp ? "topBtn restoreBtn" : "topBtn maximizeBtn"}
           onClick={e => maxRes()}
         ></button>
-          <button onClick={e => close()} id="closeBtn" className="topBtn closeBtn"></button>
+        <button onClick={e => close()} id="closeBtn" className="topBtn closeBtn"></button>
       </div>
-    </div>
+    </div >
   )
 
 }

@@ -11,17 +11,25 @@ function MyAppBar() {
     >
       <Toolbar
         sx={{
-          background: "#fff",
+          background: "#393939",
           display: "flex",
           flexDirection: "row",
           alignItems: "center",
           justifyContent: "space-around",
         }}
       >
-        <Link to="/"><Typography>Inicio</Typography></Link>
-        <Link to="/tasks"><Typography>Tareas</Typography></Link>
-        <Link to="/tasks/new"><Typography>Nueva</Typography></Link>
-        <Link to="/profile"><Typography>Perfil</Typography></Link>
+        <Link to="/" style={{ textDecoration: "none" }}>
+          <Typography sx={{ color: "#a7a7a9" }}>Inicio</Typography>
+        </Link>
+        <Link to="/tasks" style={{ textDecoration: "none" }}>
+          <Typography sx={{ color: "#a7a7a9" }}>Tareas</Typography>
+        </Link>
+        <Link to="/tasks/new" style={{ textDecoration: "none" }}>
+          <Typography sx={{ color: "#a7a7a9" }}>Nueva</Typography>
+        </Link>
+        <Link to="/profile" style={{ textDecoration: "none" }}>
+          <Typography sx={{ color: "#a7a7a9" }}>Perfil</Typography>
+        </Link>
       </Toolbar>
     </AppBar>
   )
