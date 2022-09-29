@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import logo from './logo.svg';
 import { Button, Paper, TextField } from "@mui/material"
 import FormTask from '../components/FormTask';
@@ -7,22 +7,36 @@ import TitleBar from '../components/TitleBar';
 import TaskModel from '../models/TaskModel';
 import { Link } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
+const ipcRenderer = window.require("electron").ipcRenderer
 
 
 function TasksList() {
   const navigate = useNavigate()
+  const [tasksList, setTasksList] = useState<TaskModel[]>([])
 
-  function create(title: string) {
+  useEffect(() => {
+    ipcRenderer.send("getTasks")
+  }, [])
 
-    return {
-      _id: "saasdasd",
-      title,
-      description: "string",
-      date: new Date(),
-      isFinished: false,
-    }
-  }
-  let tasksList: TaskModel[] = ["comer", "dormir", "correr", "volar"].map(e => create(e));
+  ipcRenderer.on("tasks", (e: any, tasks: TaskModel[]) => {
+    console.log(tasks)
+    setTasksList(tasks)
+  })
+  ipcRenderer.on("deleted-task", (e: any, taskId: string) => {
+    setTasksList(prev => prev.filter(t => t._id != taskId))
+  })
+
+
+  // function create(title: string) {
+  //   return {
+  //     _id: "saasdasd",
+  //     title,
+  //     description: "string",
+  //     date: new Date(),
+  //     isFinished: false,
+  //   }
+  // }
+  // let tasksList: TaskModel[] = ["comer", "dormir", "correr", "volar"].map(e => create(e));
 
   return (
     <div>
@@ -30,14 +44,12 @@ function TasksList() {
       <h3 onClick={e => navigate("/")}>Cerrar Sesion</h3>
       <Link to="/"><Button variant="contained" color="error">Cerrar Sesion</Button></Link>
 
-      {/* <FormTask /> */}
-
-      <div>
-        <h1>Lista de tareas</h1>
-        <ul>
-          {tasksList.map((item, index) => <Task task={item} index={index} />)}
-        </ul>
-      </div>
+      <h1>Lista de tareas</h1>
+      <ul>
+        {tasksList.map((item, index) =>
+          <Task task={item} index={index} />
+        )}
+      </ul>
     </div>
   );
 

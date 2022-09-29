@@ -15,8 +15,20 @@ const taskSchema = new mongoose.Schema({
   date: Date,
   isFinished: Boolean,
 }, { _id: true });
+// });
+
+
 
 const Task = mongoose.model('Task', taskSchema);
+
+const exampleTasks = [0, 0, 0, 0, 0, 0, 0, 00, 0, 0, 0, 0].map((item, index) =>
+  new Task({
+    _id: new mongoose.Types.ObjectId(),
+    title: "Titulo " + index,
+    description: "Descripción " + index,
+  }))
+
+exampleTasks.forEach(t => t.save())
 
 module.exports = {
   TasksFind: () => Task.find(),

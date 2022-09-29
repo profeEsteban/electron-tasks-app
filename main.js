@@ -90,7 +90,7 @@ ipcMain.on("getTasks", (e) => {
   })
 })
 
-ipcMain.on("delete-task", (e, idTask) => {
+ipcMain.on("login", (e, userData) => {
   console.log("BORRAR: ", idTask);
 
   TaskDelete(idTask).then(r => {

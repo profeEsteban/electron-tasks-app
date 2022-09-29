@@ -1,12 +1,21 @@
+import { useEffect } from "react";
 import TaskModel from "../../models/TaskModel";
 import './Task.css'
+const ipcRenderer = window.require("electron").ipcRenderer
 
 interface TaskParams {
   task: TaskModel,
   index: number
 }
 
+// function Task(props: TaskParams) {
+//   const task = props.task
+
+// function Task(props: TaskParams) {
+//   const { task } = props
+
 function Task({ task, index }: TaskParams) {
+
   let tasksList: any[] = []
 
   function checkTask(numberTask: number) {
@@ -14,15 +23,17 @@ function Task({ task, index }: TaskParams) {
     // renderTasks()
   }
 
-  function deleteTask(numberTask: number) {
-    // tasks = tasksList.find((e, index) => index == numberTask)
-    // let idTask = tasks._id
-    // console.log("BORRAR: ", idTask)
-    // ipcRenderer.send("delete-task", idTask)
-
-    // tasksList = tasksList.filter((e, index) => index != numberTask)
-    // renderTasks()
+  function deleteTask() {
+    ipcRenderer.send("delete-task", task._id)
   }
+
+  useEffect(() => {
+
+
+    return () => {
+      // console.log("Eliminada ", task._id)
+    }
+  }, [])
 
   return (
     <li id={"task" + index} className="task">
@@ -43,7 +54,7 @@ function Task({ task, index }: TaskParams) {
         src="/icons/delete.png"
         width="32px"
         height="32px"
-        onClick={e => deleteTask(index)}
+        onClick={e => deleteTask()}
       />
     </li>
   )

@@ -3,16 +3,16 @@ import { Link, Outlet } from "react-router-dom"
 function Tasks() {
 
   return (
-    <div style={{background: "blue", padding: 24}}>
-      <div style={{background: "green"}}>
+    <div style={{padding: 24}}>
+      <div>
         <h1>Tareas</h1>
         <Link to="list">Ir a Lista</Link><br />
         <Link to="new">Ir a Nueva</Link>
       </div>
-      <div style={{background: "red"}}>
+      <div>
         <Outlet />
       </div>
-      <div style={{background: "yellow"}}>
+      <div>
         Pie de pagina
       </div>
 

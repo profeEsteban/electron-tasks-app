@@ -33,7 +33,7 @@ function App() {
             <Routes>
               <Route path="/" element={<Login />} />
               <Route path="/tasks" element={<Tasks />}>
-                <Route path="/tasks" element={<h1>Padre</h1>} />
+                <Route path="" element={<h1>Padre</h1>} />
                 <Route path="list" element={<TasksList />} />
                 <Route path="new" element={<FormTask />} />
               </Route>
