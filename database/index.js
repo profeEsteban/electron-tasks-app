@@ -21,16 +21,21 @@ const taskSchema = new mongoose.Schema({
 
 const Task = mongoose.model('Task', taskSchema);
 
-const exampleTasks = [0, 0, 0, 0, 0, 0, 0, 00, 0, 0, 0, 0].map((item, index) =>
+const exampleTasks = [0, 0, 0, 0, 0].map((item, index) =>
   new Task({
     _id: new mongoose.Types.ObjectId(),
     title: "Titulo " + index,
     description: "Descripción " + index,
   }))
 
-exampleTasks.forEach(t => t.save())
+Task.collection.countDocuments().then(r => {
+  console.log("countDocuments: ", r)
+  if (r == 0)
+    exampleTasks.forEach(t => t.save())
+})
 
 module.exports = {
   TasksFind: () => Task.find(),
-  TaskDelete: (_id) => Task.collection.deleteOne({ _id: new mongoose.Types.ObjectId(_id) })
+  // TaskDelete: (_id) => Task.collection.deleteOne({ _id: new mongoose.Types.ObjectId(_id) })
+  TaskDelete: (_id) => Task.collection.deleteOne({ _id: _id })
 }

@@ -36,7 +36,7 @@ function createWindow() {
   // myWindow.loadUrl(`file://${__dirname}/index.html`);
   // myWindow.loadFile(`${__dirname}/index.html`);
   myWindow.loadURL("http://localhost:3000")
-  myWindow.openDevTools()
+  // myWindow.openDevTools()
 
   ipcMain.on('minimizeApp', () => {
     myWindow.minimize()
@@ -90,7 +90,7 @@ ipcMain.on("getTasks", (e) => {
   })
 })
 
-ipcMain.on("login", (e, userData) => {
+ipcMain.on("delete-task", (e, idTask) => {
   console.log("BORRAR: ", idTask);
 
   TaskDelete(idTask).then(r => {

@@ -1,12 +1,15 @@
 import React, { useEffect, useState } from 'react';
 import logo from './logo.svg';
-import { Button, Paper, TextField } from "@mui/material"
+import { Button, Collapse, Paper, TextField } from "@mui/material"
 import FormTask from '../components/FormTask';
 import Task from '../components/Task/Task';
 import TitleBar from '../components/TitleBar';
 import TaskModel from '../models/TaskModel';
 import { Link } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
+
+import { TransitionGroup } from 'react-transition-group';
+
 const ipcRenderer = window.require("electron").ipcRenderer
 
 
@@ -46,9 +49,13 @@ function TasksList() {
 
       <h1>Lista de tareas</h1>
       <ul>
-        {tasksList.map((item, index) =>
-          <Task task={item} index={index} />
-        )}
+        <TransitionGroup>
+          {tasksList.map((item, index) =>
+            <Collapse key={item._id}>
+              <Task task={item} index={index} />
+            </Collapse>
+          )}
+        </TransitionGroup>
       </ul>
     </div>
   );

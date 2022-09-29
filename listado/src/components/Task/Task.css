@@ -50,3 +50,49 @@
 .task .text{
   flex: 2;
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+.my-node-exit {
+  opacity: 1;
+}
+
+.my-node-exit-active {
+  animation: foo 2s ease forwards;
+  transform-origin: left;
+}
+
+@keyframes foo {
+  from {
+    opacity: 1;
+    background: pink;
+    transform: translate(0, 0);
+    box-shadow: 0 0 2px 3px pink;
+    color: red;
+  }
+
+  50% {
+    transform: scale(2);
+    background: coral;
+    box-shadow: 0 0 2px 3px coral;
+    color: limegreen;
+  }
+
+  to {
+    opacity: 0;
+    transform: scale(1);
+    background: white;
+    color: white;
+  }
+}
