@@ -105,12 +105,12 @@
 }
 
 .titleBarBtns .maximizeBtn {
-  background-image: url('http://localhost:3000/icons/icon_maximize.png');
+  background-image: url('http://localhost:3000/icons/icon_restore.png');
   background-size: contain;
 }
 
 .titleBarBtns .restoreBtn {
-  background-image: url('http://localhost:3000/icons/icon_restore.png');
+  background-image: url('http://localhost:3000/icons/icon_maximize.png');
   background-size: contain;
 }
 

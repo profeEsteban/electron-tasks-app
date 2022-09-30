@@ -3,8 +3,8 @@ import { useEffect, useLayoutEffect, useRef } from "react"
 import Menu from "../models/Menu"
 
 
-function MenuItem({ menu }: { menu: Menu }) {
-  const { title, link, selected } = menu
+function MenuItem({ menu, selected }: { menu: Menu, selected: boolean }) {
+  const { title} = menu
   const ref = useRef<HTMLDivElement>(null!)
   useLayoutEffect(() => {
     ref.current.focus()
