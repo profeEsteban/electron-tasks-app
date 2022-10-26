@@ -17,6 +17,7 @@
     "nodemon": "^2.0.19"
   },
   "dependencies": {
+    "bcrypt": "^5.1.0",
     "concurrently": "^7.4.0",
     "electron-reload": "^2.0.0-alpha.1",
     "mongoose": "^6.4.1",

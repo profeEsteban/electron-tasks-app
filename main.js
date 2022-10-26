@@ -3,7 +3,9 @@ const path = require('path')
 const electronReload = require('electron-reload')
 
 require("./database")
-const { findTasks, saveTask } = require("./database")
+const { FindTasks, SaveTask } = require("./database/Task/TaskMethosds")
+const { UserNew, UserLogin } = require('./database/User/UserMethods')
+
 
 // electronReload(__dirname, {
 //   // electron: path.join(__dirname, 'node_modules', '.bin', 'electron'),
@@ -13,12 +15,12 @@ const { findTasks, saveTask } = require("./database")
 
 function createWindow() {
   const myWindow = new BrowserWindow({
-    width: 360,
-    height: 780,
+    // width: 360,
+    // height: 780,
     minWidth: 360,
     minHeight: 600,
-    x: 1010,
-    y: 0,
+    // x: 1010,
+    // y: 0,
     frame: false,
     webPreferences: {
       nodeIntegration: true,
@@ -32,7 +34,7 @@ function createWindow() {
   myWindow.loadURL("http://localhost:3000");
   // myWindow.loadFile(`${__dirname}/index.html`);
   myWindow.openDevTools();
-  
+
   ipcMain.on('minimizeApp', () => {
     myWindow.minimize()
   })
@@ -77,7 +79,7 @@ app.on('window-all-closed', function () {
 
 
 ipcMain.on("get-tasks", (e) => {
-  findTasks().then((tasks) => {
+  FindTasks().then((tasks) => {
     // console.log("TAREAS: \n",tasks);
 
     // console.log("/////////////////////////////")
@@ -110,10 +112,22 @@ ipcMain.on("get-tasks", (e) => {
 
 ipcMain.on("save-task", (e, tarea) => {
   // console.log("SAVE TAREA: ", tarea);
-  saveTask(tarea).then(r => {
-    findTasks().then((tasks) => {
+  SaveTask(tarea).then(r => {
+    FindTasks().then((tasks) => {
       let nuevoArray = tasks.map(task => task._doc)
       e.reply("tasks", nuevoArray)
     })
   })
+})
+
+ipcMain.on("login", (e, { username, password }) => {
+  UserLogin(username, password)
+    .then(r => e.reply("logued", r))
+    .catch(e => console.log("LOGIN ERROR: ", e))
+})
+
+ipcMain.on("signin", (e, { username, password }) => {
+  UserNew(username, password)
+    .then(r => console.log("USER NEW RESULT: ", r))
+    .catch(e => console.log("USER NEW ERROR: ", e))
 })
