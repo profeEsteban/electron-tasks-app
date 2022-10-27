@@ -15,10 +15,12 @@ import {
 } from "react-router-dom";
 import TasksList from './pages/TasksList';
 import Tasks from './layouts/Tasks';
+import Home from './pages/Home';
 
 
 function App() {
-
+  const [userID, setUserId] = useState<string | null>(null)
+  const changeUser = (id: string | null) => setUserId(id)
   return (
     <BrowserRouter>
       <div className="mainApp">
@@ -31,7 +33,10 @@ function App() {
           </div>
           <div className="contentPage">
             <Routes>
-              <Route path="/" element={<Login />} />
+              <Route path="/" element={userID ?
+                <Home /> :
+                <Login changeUser={changeUser} />
+              } />
               <Route path="/tasks" element={<Tasks />}>
                 <Route path="" element={<h1>Padre</h1>} />
                 <Route path="list" element={<TasksList />} />

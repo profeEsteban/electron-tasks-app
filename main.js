@@ -6,7 +6,8 @@ const { env } = require('process');
 // const electronReload = require('electron-reload')
 
 require("./database");
-const { TasksFind, TaskDelete } = require("./database");
+const { TasksFind, TaskDelete } = require("./database/Task/TaskMethosds");
+const { UserLogin, UserNew } = require("./database/User/UserMethods");
 
 // electronReload(__dirname, {
 //   // electron: path.join(__dirname, 'node_modules', '.bin', 'electron'),
@@ -101,5 +102,26 @@ ipcMain.on("delete-task", (e, idTask) => {
   }).catch(e => {
     console.log("ERROR: ", e)
   })
+})
+
+
+
+
+ipcMain.handle("login", async (e, credentials) => {
+  console.log("credentials: ", credentials);
+  let { username, password } = credentials;
+  const r = await UserLogin(username, password);
+  return r.toHexString();
+})
+
+
+
+
+
+ipcMain.handle("signup", async (e, credentials) => {
+  console.log("credentials: ", credentials);
+  let { username, password } = credentials;
+  const r = await UserNew(username, password);
+  return r.toHexString();
 })
 
